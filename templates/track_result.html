@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complaint Details</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+            padding: 30px;
+        }
+
+        .box {
+            width: 500px;
+            margin: auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        p {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1a252f;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>Complaint Details</h1>
+
+        <p>
+            <b>Complaint ID:</b>
+            {{ complaint[0] }}
+        </p>
+
+        <p>
+            <b>Name:</b>
+            {{ complaint[1] }}
+        </p>
+
+        <p>
+            <b>Category:</b>
+            {{ complaint[2] }}
+        </p>
+
+        <p>
+            <b>Location:</b>
+            {{ complaint[3] }}
+        </p>
+
+        <p>
+            <b>Description:</b>
+            {{ complaint[4] }}
+        </p>
+
+        <p>
+            <b>Status:</b>
+            <span class="status">{{ complaint[5] }}</span>
+        </p>
+
+        <p>
+            <b>Complaint Date:</b>
+            {{ complaint[6] }}
+        </p>
+        <p>
+            <b>Resolution Remark:</b>
+             {{ complaint[7] }}
+        </p> 
+
+        <br>
+
+        <a href="/">
+            <button>Home</button>
+        </a>
+
+    </div>
+
+</body>
+</html>

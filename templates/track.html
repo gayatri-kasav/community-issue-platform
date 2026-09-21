@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Track Complaint</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+            padding: 30px;
+        }
+
+        .box {
+            width: 400px;
+            margin: auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .home-button {
+            background-color: #2c3e50;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>Track Complaint</h1>
+
+        <form method="POST" action="/track">
+
+            <label>Enter Complaint ID:</label>
+
+            <input type="number" name="complaint_id" required>
+
+            <button type="submit">Track Complaint</button>
+
+            <a href="/">
+                <button type="button" class="home-button">Home</button>
+            </a>
+            <a href="/report">
+                <button type="button">Report an Issue</button>
+            </a>
+        </form>
+
+    </div>
+
+</body>
+</html>
