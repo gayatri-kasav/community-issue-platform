@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 from database import get_connection
 
 app = Flask(__name__)
+import os
 
+app.secret_key = os.environ.get("SECRET_KEY", "local-development-key")
 
 @app.route("/")
 def home():
@@ -94,7 +96,9 @@ def admin_login():
         username = request.form["username"]
         password = request.form["password"]
 
-        if username == "admin" and password == "admin123":
+        if (username == os.environ.get("ADMIN_USERNAME")
+        and password == os.environ.get("ADMIN_PASSWORD")):
+            session["admin_logged_in"] = True
             return redirect("/admin_dashboard")
 
         else:
@@ -102,8 +106,16 @@ def admin_login():
 
     return render_template("admin_login.html")
 
+@app.route("/logout")
+def logout():
+    session.pop("admin_logged_in", None)
+    return redirect("/")
+
 @app.route("/admin_dashboard")
 def admin_dashboard():
+
+    if not session.get("admin_logged_in"):
+        return redirect("/admin_login")
 
     conn = get_connection()
     cursor = conn.cursor()
@@ -122,7 +134,8 @@ def admin_dashboard():
 
 @app.route("/update_status", methods=["POST"])
 def update_status():
-
+    if not session.get("admin_logged_in"):
+        return redirect("/admin_login")
     complaint_id = request.form["complaint_id"]
     status = request.form["status"]
     resolution_remarks = request.form["resolution_remarks"]
