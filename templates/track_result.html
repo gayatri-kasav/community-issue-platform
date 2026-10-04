@@ -1,103 +1,198 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 <head>
-    <title>Complaint Details</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            font-family: Arial;
-            background-color: #f2f2f2;
-            padding: 30px;
+```
+<title>Complaint Details | Community Issue Reporting Platform</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+    .result-page {
+        min-height: 75vh;
+        padding: 45px 15px;
+        background: linear-gradient(135deg, #eff6ff, #f8fafc);
+    }
+
+    .result-card {
+        width: 100%;
+        max-width: 750px;
+        margin: auto;
+        background: white;
+        padding: 35px;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .result-card h1 {
+        text-align: center;
+        color: #1e3a8a;
+        margin-bottom: 10px;
+    }
+
+    .result-subtitle {
+        text-align: center;
+        color: #64748b;
+        margin-bottom: 28px;
+    }
+
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 15px 12px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .detail-label {
+        color: #475569;
+        font-weight: 600;
+        min-width: 145px;
+    }
+
+    .detail-value {
+        color: #1e293b;
+        text-align: right;
+        overflow-wrap: anywhere;
+    }
+
+    .status-value {
+        display: inline-block;
+        background: #dbeafe;
+        color: #1d4ed8;
+        padding: 5px 13px;
+        border-radius: 20px;
+        font-weight: 600;
+    }
+
+    .result-actions {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+
+    .track-again {
+        background: #475569;
+    }
+
+    .track-again:hover {
+        background: #334155;
+    }
+
+    @media (max-width: 550px) {
+        .result-card {
+            padding: 23px 17px;
         }
 
-        .box {
-            width: 500px;
-            margin: auto;
-            background-color: white;
-            padding: 25px;
-            border-radius: 10px;
+        .detail-row {
+            flex-direction: column;
+            gap: 5px;
         }
 
-        h1 {
-            text-align: center;
+        .detail-value {
+            text-align: left;
         }
 
-        p {
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
+        .detail-label {
+            min-width: auto;
         }
+    }
+</style>
+```
 
-        .status {
-            font-weight: bold;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #1a252f;
-        }
-    </style>
 </head>
 
 <body>
 
-    <div class="box">
+```
+<nav class="navbar">
+    <div class="logo">Community Connect</div>
 
-        <h1>Complaint Details</h1>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/report">Report Issue</a>
+        <a href="/track">Track Complaint</a>
+        <a href="/complaints">View Complaints</a>
+    </div>
+</nav>
 
-        <p>
-            <b>Complaint ID:</b>
-            {{ complaint[0] }}
+<main class="result-page">
+
+    <div class="result-card">
+
+        <h1>📋 Complaint Details</h1>
+
+        <p class="result-subtitle">
+            Here is the latest information about your complaint.
         </p>
 
-        <p>
-            <b>Name:</b>
-            {{ complaint[1] }}
-        </p>
+        <div class="detail-row">
+            <span class="detail-label">Complaint ID</span>
+            <span class="detail-value">{{ complaint[0] }}</span>
+        </div>
 
-        <p>
-            <b>Category:</b>
-            {{ complaint[2] }}
-        </p>
+        <div class="detail-row">
+            <span class="detail-label">Name</span>
+            <span class="detail-value">{{ complaint[1] }}</span>
+        </div>
 
-        <p>
-            <b>Location:</b>
-            {{ complaint[3] }}
-        </p>
+        <div class="detail-row">
+            <span class="detail-label">Category</span>
+            <span class="detail-value">{{ complaint[2] }}</span>
+        </div>
 
-        <p>
-            <b>Description:</b>
-            {{ complaint[4] }}
-        </p>
+        <div class="detail-row">
+            <span class="detail-label">Location</span>
+            <span class="detail-value">{{ complaint[3] }}</span>
+        </div>
 
-        <p>
-            <b>Status:</b>
-            <span class="status">{{ complaint[5] }}</span>
-        </p>
+        <div class="detail-row">
+            <span class="detail-label">Description</span>
+            <span class="detail-value">{{ complaint[4] }}</span>
+        </div>
 
-        <p>
-            <b>Complaint Date:</b>
-            {{ complaint[6] }}
-        </p>
-        <p>
-            <b>Resolution Remark:</b>
-             {{ complaint[7] }}
-        </p> 
+        <div class="detail-row">
+            <span class="detail-label">Status</span>
+            <span class="detail-value">
+                <span class="status-value">{{ complaint[5] }}</span>
+            </span>
+        </div>
 
-        <br>
+        <div class="detail-row">
+            <span class="detail-label">Complaint Date</span>
+            <span class="detail-value">{{ complaint[6] }}</span>
+        </div>
 
-        <a href="/">
-            <button>Home</button>
-        </a>
+        <div class="detail-row">
+            <span class="detail-label">Resolution Remark</span>
+            <span class="detail-value">{{ complaint[7] or 'No remarks available yet' }}</span>
+        </div>
+
+        <div class="result-actions">
+
+            <a href="/" class="btn">
+                Home
+            </a>
+
+            <a href="/track" class="btn track-again">
+                Track Another Complaint
+            </a>
+
+        </div>
 
     </div>
+
+</main>
+
+<footer class="footer">
+    <p>© 2026 Community Issue Reporting Platform | Working Together for a Better Community</p>
+</footer>
+```
 
 </body>
 </html>

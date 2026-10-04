@@ -1,78 +1,200 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 <head>
-    <title>Submitted Complaints</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            font-family: Arial;
-            background-color: #f2f2f2;
-            padding: 30px;
+```
+<title>Submitted Complaints | Community Issue Reporting Platform</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+    .complaints-page {
+        min-height: 75vh;
+        padding: 40px 5%;
+        background: #f4f7fc;
+    }
+
+    .complaints-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .complaints-header h1 {
+        color: #1e3a8a;
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .complaints-header p {
+        color: #64748b;
+    }
+
+    .complaints-card {
+        background: white;
+        padding: 22px;
+        border-radius: 14px;
+        box-shadow: 0 5px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .complaints-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 850px;
+    }
+
+    .complaints-table th {
+        background: #1d4ed8;
+        color: white;
+        padding: 15px;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .complaints-table td {
+        padding: 14px;
+        border-bottom: 1px solid #e2e8f0;
+        color: #334155;
+        vertical-align: top;
+    }
+
+    .complaints-table tr:hover td {
+        background: #f8faff;
+    }
+
+    .complaint-id {
+        color: #1d4ed8;
+        font-weight: 700;
+    }
+
+    .status-label {
+        display: inline-block;
+        padding: 5px 11px;
+        border-radius: 20px;
+        background: #dbeafe;
+        color: #1d4ed8;
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .complaints-actions {
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .empty-message {
+        text-align: center;
+        padding: 25px;
+        color: #64748b;
+    }
+
+    @media (max-width: 600px) {
+        .complaints-header h1 {
+            font-size: 26px;
         }
 
-        h1 {
-            text-align: center;
+        .complaints-card {
+            padding: 12px;
         }
+    }
+</style>
+```
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #ddd;
-        }
-    </style>
 </head>
 
 <body>
 
-    <h1>Submitted Complaints</h1>
-    <div style="text-align: center; margin-bottom: 20px;">
-    <a href="/">
-        <button style="
-            padding: 10px 20px;
-            background-color: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        ">
-            Home
-        </button>
-    </a>
-</div>
-    <table>
-        <tr>
-            <th>Complaint ID</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Location</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Date</th>
-        </tr>
+```
+<nav class="navbar">
+    <div class="logo">Community Connect</div>
 
-        {% for complaint in complaints %}
-        <tr>
-            <td>{{ complaint[0] }}</td>
-            <td>{{ complaint[1] }}</td>
-            <td>{{ complaint[2] }}</td>
-            <td>{{ complaint[3] }}</td>
-            <td>{{ complaint[4] }}</td>
-            <td>{{ complaint[5] }}</td>
-            <td>{{ complaint[6] }}</td>
-        </tr>
-        {% endfor %}
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/report">Report Issue</a>
+        <a href="/track">Track Complaint</a>
+        <a href="/complaints">View Complaints</a>
+    </div>
+</nav>
 
-    </table>
+<main class="complaints-page">
+
+    <div class="complaints-header">
+        <h1>Submitted Complaints</h1>
+        <p>View community issues reported through our platform.</p>
+    </div>
+
+    <div class="complaints-card">
+
+        <div class="table-container">
+
+            <table class="complaints-table">
+
+                <thead>
+                    <tr>
+                        <th>Complaint ID</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Location</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for complaint in complaints %}
+
+                    <tr>
+                        <td class="complaint-id">{{ complaint[0] }}</td>
+                        <td>{{ complaint[1] }}</td>
+                        <td>{{ complaint[2] }}</td>
+                        <td>{{ complaint[3] }}</td>
+                        <td>{{ complaint[4] }}</td>
+                        <td>
+                            <span class="status-label">
+                                {{ complaint[5] }}
+                            </span>
+                        </td>
+                        <td>{{ complaint[6] }}</td>
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td colspan="7" class="empty-message">
+                            No complaints have been submitted yet.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="complaints-actions">
+        <a href="/" class="btn">Home</a>
+        <a href="/report" class="btn">Report an Issue</a>
+    </div>
+
+</main>
+
+<footer class="footer">
+    <p>© 2026 Community Issue Reporting Platform | Working Together for a Better Community</p>
+</footer>
+```
 
 </body>
 </html>

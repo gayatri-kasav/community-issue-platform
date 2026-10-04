@@ -1,146 +1,297 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 <head>
-    <title>Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            font-family: Arial;
-            background-color: #f2f2f2;
-            padding: 30px;
+```
+<title>Admin Dashboard | Community Issue Reporting Platform</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+    .dashboard-page {
+        min-height: 75vh;
+        padding: 35px 4%;
+        background: #f4f7fc;
+    }
+
+    .dashboard-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .dashboard-header h1 {
+        color: #1e3a8a;
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+
+    .dashboard-header p {
+        color: #64748b;
+    }
+
+    .dashboard-actions {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+    }
+
+    .logout-button {
+        background: #dc2626;
+    }
+
+    .logout-button:hover {
+        background: #b91c1c;
+    }
+
+    .dashboard-card {
+        background: white;
+        padding: 20px;
+        border-radius: 14px;
+        box-shadow: 0 5px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    .dashboard-table-container {
+        overflow-x: auto;
+    }
+
+    .dashboard-table {
+        width: 100%;
+        min-width: 1150px;
+        border-collapse: collapse;
+    }
+
+    .dashboard-table th {
+        background: #1d4ed8;
+        color: white;
+        padding: 14px;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .dashboard-table td {
+        padding: 13px;
+        border-bottom: 1px solid #e2e8f0;
+        color: #334155;
+        vertical-align: top;
+    }
+
+    .dashboard-table tr:hover td {
+        background: #f8faff;
+    }
+
+    .dashboard-table input[type="text"],
+    .dashboard-table select {
+        width: 180px;
+        padding: 9px;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 13px;
+        margin-bottom: 9px;
+    }
+
+    .dashboard-table input:focus,
+    .dashboard-table select:focus {
+        outline: none;
+        border-color: #2563eb;
+    }
+
+    .update-button {
+        padding: 9px 17px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .update-button:hover {
+        background: #1d4ed8;
+    }
+
+    .dashboard-id {
+        color: #1d4ed8;
+        font-weight: 700;
+    }
+
+    .empty-message {
+        text-align: center;
+        padding: 25px;
+        color: #64748b;
+    }
+
+    @media (max-width: 600px) {
+        .dashboard-header h1 {
+            font-size: 26px;
         }
 
-        h1 {
-            text-align: center;
+        .dashboard-card {
+            padding: 12px;
         }
+    }
+</style>
+```
 
-        .home-button {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .home-button button {
-            padding: 10px 20px;
-            background-color: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .home-button button:hover {
-            background-color: #1a252f;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #333;
-            color: white;
-        }
-
-        select {
-            padding: 6px;
-        }
-
-        td button {
-            padding: 6px 10px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 
 <body>
 
-    <h1>Admin Dashboard</h1>
+```
+<nav class="navbar">
+    <div class="logo">Community Connect</div>
 
-    <div class="home-button">
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/report">Report Issue</a>
+        <a href="/track">Track Complaint</a>
+        <a href="/complaints">View Complaints</a>
+    </div>
+</nav>
 
-    <a href="/">
-        <button>Home</button>
-    </a>
+<main class="dashboard-page">
 
-    <a href="/logout">Logout
-        <button>Logout</button>
-    </a>
+    <div class="dashboard-header">
+        <h1>Admin Dashboard</h1>
+        <p>Manage community complaints and update their progress.</p>
+    </div>
 
-</div>
+    <div class="dashboard-actions">
 
-    <table>
+        <a href="/" class="btn">
+            Home
+        </a>
 
-        <tr>
-            <th>Complaint ID</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Location</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Date</th>
-            <th>Resolution Remark</th>
-            <th>Action</th>
-        </tr>
+        <a href="/logout" class="btn logout-button">
+            Logout
+        </a>
 
-        {% for complaint in complaints %}
+    </div>
 
-        <tr>
-            <td>{{ complaint[0] }}</td>
-            <td>{{ complaint[1] }}</td>
-            <td>{{ complaint[2] }}</td>
-            <td>{{ complaint[3] }}</td>
-            <td>{{ complaint[4] }}</td>
-            <td>{{ complaint[5] }}</td>
-            <td>{{ complaint[6] }}</td>
-            <td>{{ complaint[7] }}</td>
+    <div class="dashboard-card">
 
-            <td>
+        <div class="dashboard-table-container">
 
-                <form method="POST" action="/update_status">
+            <table class="dashboard-table">
 
-                    <input type="hidden"
-                           name="complaint_id"
-                           value="{{ complaint[0] }}">
+                <thead>
+                    <tr>
+                        <th>Complaint ID</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Location</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Resolution Remark</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
 
-                    <select name="status">
+                <tbody>
 
-    <option value="Submitted">Submitted</option>
-    <option value="Under Review">Under Review</option>
-    <option value="In Progress">In Progress</option>
-    <option value="Resolved">Resolved</option>
+                    {% for complaint in complaints %}
 
-</select>
+                    <tr>
 
-<br><br>
+                        <td class="dashboard-id">
+                            {{ complaint[0] }}
+                        </td>
 
-<input type="text"
-       name="resolution_remarks"
-       placeholder="Resolution Remark">
+                        <td>{{ complaint[1] }}</td>
 
-<br><br>
+                        <td>{{ complaint[2] }}</td>
 
-<button type="submit">Update</button>
+                        <td>{{ complaint[3] }}</td>
 
-                </form>
+                        <td>{{ complaint[4] }}</td>
 
-            </td>
-        </tr>
+                        <td>{{ complaint[5] }}</td>
 
-        {% endfor %}
+                        <td>{{ complaint[6] }}</td>
 
-    </table>
+                        <td>{{ complaint[7] or 'No remarks yet' }}</td>
+
+                        <td>
+
+                            <form method="POST" action="/update_status">
+
+                                <input
+                                    type="hidden"
+                                    name="complaint_id"
+                                    value="{{ complaint[0] }}"
+                                >
+
+                                <select name="status" required>
+
+                                    <option value="Submitted"
+                                        {% if complaint[5] == 'Submitted' %}selected{% endif %}>
+                                        Submitted
+                                    </option>
+
+                                    <option value="Under Review"
+                                        {% if complaint[5] == 'Under Review' %}selected{% endif %}>
+                                        Under Review
+                                    </option>
+
+                                    <option value="In Progress"
+                                        {% if complaint[5] == 'In Progress' %}selected{% endif %}>
+                                        In Progress
+                                    </option>
+
+                                    <option value="Resolved"
+                                        {% if complaint[5] == 'Resolved' %}selected{% endif %}>
+                                        Resolved
+                                    </option>
+
+                                </select>
+
+                                <input
+                                    type="text"
+                                    name="resolution_remarks"
+                                    placeholder="Enter resolution remark"
+                                    value="{{ complaint[7] or '' }}"
+                                >
+
+                                <button type="submit" class="update-button">
+                                    Update
+                                </button>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td colspan="9" class="empty-message">
+                            No complaints available at the moment.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</main>
+
+<footer class="footer">
+    <p>© 2026 Community Issue Reporting Platform | Working Together for a Better Community</p>
+</footer>
+```
 
 </body>
 </html>

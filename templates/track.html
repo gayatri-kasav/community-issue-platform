@@ -1,74 +1,167 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 <head>
-    <title>Track Complaint</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            font-family: Arial;
-            background-color: #f2f2f2;
-            padding: 30px;
+```
+<title>Track Complaint | Community Issue Reporting Platform</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+    .track-page {
+        min-height: 75vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 15px;
+        background: linear-gradient(135deg, #eff6ff, #f8fafc);
+    }
+
+    .track-card {
+        width: 100%;
+        max-width: 520px;
+        background: white;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+        text-align: center;
+    }
+
+    .track-icon {
+        font-size: 48px;
+        margin-bottom: 12px;
+    }
+
+    .track-card h1 {
+        color: #1e3a8a;
+        font-size: 29px;
+        margin-bottom: 12px;
+    }
+
+    .track-card p {
+        color: #64748b;
+        margin-bottom: 25px;
+    }
+
+    .track-card label {
+        text-align: left;
+    }
+
+    .track-card input {
+        margin-bottom: 20px;
+    }
+
+    .track-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .home-link {
+        background: #475569;
+    }
+
+    .home-link:hover {
+        background: #334155;
+    }
+
+    .track-note {
+        margin-top: 22px;
+        padding: 12px;
+        background: #eff6ff;
+        border-radius: 8px;
+        color: #1e40af;
+        font-size: 13px;
+    }
+
+    @media (max-width: 500px) {
+        .track-card {
+            padding: 25px 20px;
         }
 
-        .box {
-            width: 400px;
-            margin: auto;
-            background-color: white;
-            padding: 25px;
-            border-radius: 10px;
+        .track-card h1 {
+            font-size: 25px;
         }
+    }
+</style>
+```
 
-        h1 {
-            text-align: center;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .home-button {
-            background-color: #2c3e50;
-            margin-left: 10px;
-        }
-    </style>
 </head>
 
 <body>
 
-    <div class="box">
+```
+<nav class="navbar">
+    <div class="logo">Community Connect</div>
 
-        <h1>Track Complaint</h1>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/report">Report Issue</a>
+        <a href="/track">Track Complaint</a>
+        <a href="/complaints">View Complaints</a>
+    </div>
+</nav>
+
+<main class="track-page">
+
+    <div class="track-card">
+
+        <div class="track-icon">🔎</div>
+
+        <h1>Track Your Complaint</h1>
+
+        <p>
+            Enter your Complaint ID below to check the current
+            status of your reported community issue.
+        </p>
 
         <form method="POST" action="/track">
 
-            <label>Enter Complaint ID:</label>
+            <label for="complaint_id">Complaint ID</label>
 
-            <input type="number" name="complaint_id" required>
+            <input
+                type="number"
+                id="complaint_id"
+                name="complaint_id"
+                placeholder="Enter your Complaint ID"
+                min="1"
+                required
+            >
 
-            <button type="submit">Track Complaint</button>
+            <div class="track-buttons">
 
-            <a href="/">
-                <button type="button" class="home-button">Home</button>
-            </a>
-            <a href="/report">
-                <button type="button">Report an Issue</button>
-            </a>
+                <button type="submit" class="btn">
+                    Track Complaint
+                </button>
+
+                <a href="/" class="btn home-link">
+                    Home
+                </a>
+
+                <a href="/report" class="btn">
+                    Report an Issue
+                </a>
+
+            </div>
+
         </form>
 
+        <div class="track-note">
+            💡 Keep your Complaint ID safe after submitting an issue.
+        </div>
+
     </div>
+
+</main>
+
+<footer class="footer">
+    <p>© 2026 Community Issue Reporting Platform | Working Together for a Better Community</p>
+</footer>
+```
 
 </body>
 </html>

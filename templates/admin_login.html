@@ -1,79 +1,184 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 <head>
-    <title>Admin Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            font-family: Arial;
-            background-color: #f2f2f2;
-            padding: 50px;
-        }
+```
+<title>Admin Login | Community Issue Reporting Platform</title>
 
-        .box {
-            width: 350px;
-            margin: auto;
-            background-color: white;
-            padding: 25px;
-            border-radius: 10px;
-        }
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-        h1 {
-            text-align: center;
-        }
+<style>
+    .admin-login-page {
+        min-height: 75vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 15px;
+        background: linear-gradient(135deg, #eff6ff, #f8fafc);
+    }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 8px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-        }
+    .login-card {
+        width: 100%;
+        max-width: 430px;
+        background: white;
+        padding: 38px;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+    }
 
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #333;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+    .login-icon {
+        text-align: center;
+        font-size: 48px;
+        margin-bottom: 12px;
+    }
 
-        .home-button {
-            background-color: #2c3e50;
-            margin-top: 10px;
-        }
+    .login-card h1 {
+        text-align: center;
+        color: #1e3a8a;
+        font-size: 29px;
+        margin-bottom: 10px;
+    }
 
-        button:hover {
-            opacity: 0.9;
+    .login-description {
+        text-align: center;
+        color: #64748b;
+        margin-bottom: 25px;
+        font-size: 14px;
+    }
+
+    .login-card label {
+        display: block;
+        margin: 15px 0 7px;
+        color: #334155;
+        font-weight: 600;
+    }
+
+    .login-card input {
+        width: 100%;
+        padding: 13px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 15px;
+    }
+
+    .login-card input:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .login-button {
+        width: 100%;
+        margin-top: 25px;
+    }
+
+    .login-home {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .login-home:hover {
+        text-decoration: underline;
+    }
+
+    .security-note {
+        background: #eff6ff;
+        color: #1e40af;
+        padding: 12px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 13px;
+        margin-top: 22px;
+    }
+
+    @media (max-width: 500px) {
+        .login-card {
+            padding: 28px 22px;
         }
-    </style>
+    }
+</style>
+```
+
 </head>
 
 <body>
 
-    <div class="box">
+```
+<nav class="navbar">
+    <div class="logo">Community Connect</div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/report">Report Issue</a>
+        <a href="/track">Track Complaint</a>
+        <a href="/complaints">View Complaints</a>
+    </div>
+</nav>
+
+<main class="admin-login-page">
+
+    <div class="login-card">
+
+        <div class="login-icon">🔐</div>
 
         <h1>Admin Login</h1>
 
+        <p class="login-description">
+            Authorized access to the Community Issue Management System
+        </p>
+
         <form method="POST" action="/admin_login">
 
-            <label>Username:</label>
-            <input type="text" name="username" required>
+            <label for="username">Username</label>
 
-            <label>Password:</label>
-            <input type="password" name="password" required>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Enter admin username"
+                autocomplete="username"
+                required
+            >
 
-            <button type="submit">Login</button>
+            <label for="password">Password</label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter admin password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit" class="btn login-button">
+                Login to Dashboard
+            </button>
 
         </form>
 
-        <a href="/">
-            <button type="button" class="home-button">Home</button>
-        </a>
+        <div class="security-note">
+            🔒 This section is restricted to authorized administrators.
+        </div>
+
+        <a href="/" class="login-home">← Back to Home</a>
 
     </div>
+
+</main>
+
+<footer class="footer">
+    <p>© 2026 Community Issue Reporting Platform | Working Together for a Better Community</p>
+</footer>
+```
 
 </body>
 </html>
